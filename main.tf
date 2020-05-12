@@ -19,9 +19,9 @@ data "azuread_service_principal" "key_vault" {
 # Fetch current user info using the az cli
 # Not possible to get the object_id of current user (not service principal) now
 # https://github.com/terraform-providers/terraform-provider-azurerm/issues/3234
-data "external" "user" {
-  program = ["az", "ad", "signed-in-user", "show", "--query", "{displayName: displayName,objectId: objectId,objectType: objectType,upn: upn}"]
-}
+# data "external" "user" {
+#   program = ["az", "ad", "signed-in-user", "show", "--query", "{displayName: displayName,objectId: objectId,objectType: objectType,upn: upn}"]
+# }
 
 resource "azurerm_resource_group" "state" {
   name     = var.resource_group_name
@@ -109,7 +109,7 @@ resource "azurerm_key_vault_access_policy" "current" {
   key_vault_id = azurerm_key_vault.state.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
-  object_id = data.external.user.result.objectId
+  object_id = data.azurerm_client_config.current.object_id #data.external.user.result.objectId
 
   secret_permissions = [
     "get",
