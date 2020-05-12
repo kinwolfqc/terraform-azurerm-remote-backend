@@ -37,7 +37,7 @@ resource "azurerm_storage_account" "state" {
 
   account_kind              = "StorageV2"
   account_tier              = "Standard"
-  account_replication_type  = "GRS"
+  account_replication_type  = "LRS"
   enable_https_traffic_only = true
   # TODO Enable soft delete when supported by provider
 
