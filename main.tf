@@ -135,9 +135,10 @@ resource "azurerm_key_vault_access_policy" "users" {
 }
 
 resource "azurerm_role_assignment" "state" {
-  scope                = azurerm_storage_account.state.id
-  role_definition_name = "Storage Account Key Operator Service Role"
   principal_id         = data.azuread_service_principal.key_vault.object_id
+  role_definition_name = "Storage Account Key Operator Service Role"
+  scope                = azurerm_storage_account.state.id
+  
 }
 
 # Cannot grant access to storage with terraform, do from command line
