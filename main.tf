@@ -141,10 +141,10 @@ resource "azurerm_role_assignment" "state" {
 }
 
 # Cannot grant access to storage with terraform, do from command line
-resource "null_resource" "generate_sas_definition" {
-  provisioner "local-exec" {
-    command = "${path.module}/generate-sas-definition.sh ${data.azurerm_client_config.current.subscription_id} ${azurerm_storage_account.state.name} ${azurerm_key_vault.state.name} ${azurerm_storage_account.state.id} ${var.key_rotation_days}"
-  }
+# resource "null_resource" "generate_sas_definition" {
+#   provisioner "local-exec" {
+#     command = "${path.module}/generate-sas-definition.sh ${data.azurerm_client_config.current.subscription_id} ${azurerm_storage_account.state.name} ${azurerm_key_vault.state.name} ${azurerm_storage_account.state.id} ${var.key_rotation_days}"
+#   }
 
-  depends_on = [azurerm_role_assignment.state, azurerm_key_vault_access_policy.current]
-}
+#   depends_on = [azurerm_role_assignment.state, azurerm_key_vault_access_policy.current]
+# }
